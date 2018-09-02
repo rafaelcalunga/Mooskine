@@ -185,7 +185,11 @@ extension NotesListViewController: NSFetchedResultsControllerDelegate {
             }
         case .delete:
             if let indexPath = indexPath {
-                tableView.insertRows(at: [indexPath], with: .fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .fade)
             }
         default:
             break

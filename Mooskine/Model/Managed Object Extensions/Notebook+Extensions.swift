@@ -12,6 +12,7 @@ import CoreData
 extension Notebook {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
+        
         self.creationDate = Date()
     }
 }
