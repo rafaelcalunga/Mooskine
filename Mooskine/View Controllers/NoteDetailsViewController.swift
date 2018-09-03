@@ -34,7 +34,7 @@ class NoteDetailsViewController: UIViewController {
             navigationItem.title = dateFormatter.string(from: creationDate)
         }
         
-        textView.text = note.text
+        textView.attributedText = note.attributedText
     }
 
     @IBAction func deleteNote(sender: Any) {
@@ -63,7 +63,7 @@ extension NoteDetailsViewController {
 
 extension NoteDetailsViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        note.text = textView.text
+        note.attributedText = textView.attributedText
         
         try? dataController.viewContext.save()
     }
