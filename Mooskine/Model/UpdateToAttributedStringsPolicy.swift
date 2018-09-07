@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-
+ 
 class UpdateToAttributedStringsPolicy: NSEntityMigrationPolicy {
     
     override func createDestinationInstances(forSource sInstance: NSManagedObject, in mapping: NSEntityMapping, manager: NSMigrationManager) throws {
