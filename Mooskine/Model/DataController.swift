@@ -13,6 +13,8 @@ class DataController: NSObject {
     
     let persisteContainer: NSPersistentContainer
     
+    var backgroundContext: NSManagedObjectContext!
+    
     var viewContext: NSManagedObjectContext {
         return persisteContainer.viewContext
     }
@@ -21,12 +23,23 @@ class DataController: NSObject {
         persisteContainer = NSPersistentContainer(name: modelName)
     }
     
+    func configureContexts() {
+        backgroundContext = persisteContainer.newBackgroundContext()
+        
+        viewContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+    }
+    
     func load(completion: (() -> Void)? = nil) {
         persisteContainer.loadPersistentStores { description, error in
             guard error == nil else {
                 fatalError("Failed to load Core Data stack: \(error!.localizedDescription)")
             }
             self.autoSaveViewController()
+            self.configureContexts()
             completion?()
         }
     }
